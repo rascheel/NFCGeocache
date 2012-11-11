@@ -53,5 +53,11 @@ public class MainMenu extends Activity
     {
         Intent intent = new Intent(this, SendFeedbackActivity.class);
         startActivity(intent);
-    } 
+    }
+
+   public void loginPage(View view)
+   {
+       Intent intent = new Intent(this, LoginActivity.class);
+       startActivity(intent);
+   } 
 }

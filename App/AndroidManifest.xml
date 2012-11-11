@@ -32,6 +32,13 @@
                 android:value="com.NFCGeo.MainMenu" />
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_login">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.NFCGeo.MainMenu"/>
+        </activity>
+        <activity
             android:name=".ViewPointActivity"
             android:label="@string/title_activity_view_point" >
             <meta-data

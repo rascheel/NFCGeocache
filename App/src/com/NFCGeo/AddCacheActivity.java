@@ -52,7 +52,7 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_write_tag, menu);
+		//getMenuInflater().inflate(R.menu.activity_write_tag, menu);
 		return true;
 	}
 
