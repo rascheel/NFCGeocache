@@ -1,0 +1,59 @@
+package com.NFCGeo;
+import java.sql.*;
+import android.app.Activity;
+
+
+public class DatabaseHandler{
+	
+	private static String address;
+	private String username;
+	private String password;
+	private static Connection con;
+	
+	public DatabaseHandler(String url, String un, String pw){
+		address = "jdbc:mysql://ggholson.student.iastate.edu:3306/nfcgeo";
+		username = un;
+		password = pw;
+	}
+	
+	public String isValid(int t) throws SQLException{
+		return Boolean.toString(con.isValid(t));
+	}
+	
+	public void openDB(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(address, username, password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String queryColumn(String query, String select) throws SQLException{
+		Statement s = con.createStatement();
+		ResultSet data = s.executeQuery(query);
+		return data.getString(select);
+	}
+	
+	public ResultSet queryTable(String query) throws SQLException{
+		Statement s = con.createStatement();
+		return s.executeQuery(query);
+	}
+	
+	public void addDB(String add) throws SQLException{
+		Statement s = con.createStatement();
+		s.execute(add);
+	}
+	
+	public int deleteDB(String delete) throws SQLException{
+		Statement s = con.createStatement();
+		try {
+			s.execute(delete);
+			return 1;	//Success
+		} catch (SQLException e){
+			return 0;	//Entry is not in the db
+		}
+		
+	}
+}

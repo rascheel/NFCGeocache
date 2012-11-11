@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    >
+    <TextView
+        android:id = "@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ryan's Profile" 
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+     <TextView
+        android:id = "@+id/cachesFoundTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userName"
+        android:text="# of Caches Found: "
+        android:textStyle="bold"/>
+
+     <TextView
+        android:id = "@+id/cachesPlacedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cachesFoundTitle"
+        android:text="# of Caches Placed: "
+        android:textStyle="bold"/>
+     <TextView
+        android:id = "@+id/cachesPlacedField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf = "@id/cachesPlacedTitle"
+        android:layout_below="@id/cachesFoundTitle"
+        android:text="0"/>     
+     <TextView
+        android:id = "@+id/globalRankingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cachesPlacedTitle"
+        android:text="Global Ranking: "
+        android:textStyle="bold"/>
+     <TextView
+        android:id = "@+id/globalRankingField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf = "@id/globalRankingTitle"
+        android:layout_alignLeft = "@id/cachesPlacedField"
+        android:layout_below="@id/cachesPlacedTitle"
+        android:text = "1"/>
+     <TextView
+        android:id = "@+id/cachesFoundField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userName"
+        android:layout_toRightOf = "@id/cachesFoundTitle"
+        android:layout_alignLeft = "@id/cachesPlacedField"
+        android:text="0"/>
+
+
+</RelativeLayout>

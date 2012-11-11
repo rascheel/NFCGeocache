@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight = "16dp" 
+    >
+    <TextView
+        android:id="@+id/fromTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From: "
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/fromField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/fromTitle" />
+    <TextView
+        android:id="@+id/subjectTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fromField"
+        android:text = "Subject: "
+        android:textStyle = "bold"/>
+    <TextView
+        android:id="@+id/subjectField"
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/subjectTitle"
+        android:layout_below="@id/fromField"
+        android:paddingBottom="16dp"/>
+    <Button
+        android:id="@+id/replyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reply"
+        android:onClick="reply"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+    <TextView
+        android:id="@+id/bodyField"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:layout_below="@id/subjectField"
+        android:layout_above="@id/replyButton"
+        android:paddingBottom="16dp"
+        android:background="#FFFFFF"/>
+
+
+</RelativeLayout>

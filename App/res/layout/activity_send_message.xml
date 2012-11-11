@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight = "16dp"
+    >
+    <TextView
+        android:id="@+id/toTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To: "
+        android:textStyle="bold"
+	android:layout_alignRight = "@id/subjectTitle"/>
+    <EditText
+        android:id="@+id/toField"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/toTitle"
+	android:editable = "true"
+	android:paddingRight = "16dp"
+	android:layout_alignLeft = "@id/subjectField"/>
+    <TextView
+        android:id="@+id/subjectTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toField"
+        android:text = "Subject: "
+        android:textStyle = "bold"/>
+    <EditText
+        android:id="@+id/subjectField"
+        android:layout_width = "fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/subjectTitle"
+        android:layout_below="@id/toField"
+	android:paddingRight = "16dp"
+	android:editable = "true"/>
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:onClick="sendMessage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+    <EditText
+        android:id="@+id/bodyField"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:layout_below="@id/subjectField"
+        android:layout_above="@id/sendButton"
+        />
+</RelativeLayout>
