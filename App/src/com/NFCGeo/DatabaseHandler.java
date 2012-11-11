@@ -1,5 +1,6 @@
 package com.NFCGeo;
 import java.sql.*;
+
 import android.app.Activity;
 
 
@@ -12,8 +13,8 @@ public class DatabaseHandler{
 	
 	public DatabaseHandler(String url, String un, String pw){
 		address = "jdbc:mysql://ggholson.student.iastate.edu:3306/nfcgeo";
-		username = un;
-		password = pw;
+		username = "root";
+		password = "rootpw";
 	}
 	
 	public String isValid(int t) throws SQLException{
@@ -28,6 +29,22 @@ public class DatabaseHandler{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String userAuth(String username) throws SQLException{
+		Statement s = con.createStatement();
+		ResultSet data = s.executeQuery("SELECT * FROM auth WHERE user=\'" + username + "\'");
+		data.first();
+		String temp = null;
+		data.getString("hash");
+		return temp;
+	}
+	
+	public boolean newUser(String username, String hash) throws SQLException{
+		Statement s = con.createStatement();
+		ResultSet data = s.executeQuery("INSERT INTO auth(user, hash) VALUES(/'" + username + "/',/'" + hash + "/')");
+		if(r.next()) return true;
+		else return false;
 	}
 	
 	public String queryColumn(String query, String select) throws SQLException{
