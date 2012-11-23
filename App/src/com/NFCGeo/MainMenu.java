@@ -60,4 +60,25 @@ public class MainMenu extends Activity
        Intent intent = new Intent(this, LoginActivity.class);
        startActivity(intent);
    } 
+	/**
+	 * Converts an array of bytes to a hex-formatted String.
+	 * @param byteArray		the byte array to convert
+	 * @return	the hex format of the byte array as a String
+	 */
+	public static String ByteArrayToHexString(byte[] byteArray) {
+		int i, j, in;
+		String[] hex = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A",
+				"B", "C", "D", "E", "F" };
+		String hexString = "";
+
+		for (j = 0; j < byteArray.length; ++j) {
+			in = (int) byteArray[j] & 0xff;
+			i = (in >> 4) & 0x0f;
+			hexString += hex[i];
+			i = in & 0x0f;
+			hexString += hex[i];
+		}
+
+		return hexString;
+	}
 }
