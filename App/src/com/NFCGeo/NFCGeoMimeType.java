@@ -7,8 +7,6 @@ package com.NFCGeo;
  *
  */
 public class NFCGeoMimeType {
-	public static final String NFCGEO_MIMETYPE = "application/com.nfcgeo.cache";
-	public static final String NFCGEO_INTENT_URI_STRING = "#Intent;component=com.NFCGeo"
-			+ "/.ScanCacheActivity;end";
+	public static final String NFCGEO_MIMETYPE = "application/nfcgeo";
 
 }

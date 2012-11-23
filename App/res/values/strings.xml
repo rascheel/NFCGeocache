@@ -6,6 +6,7 @@
     <string name="button_map">Find a Point</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+
     <string name="title_activity_view_point">ViewPointActivity</string>
     <string name="title_add_cache">Add Cache</string>
     <string name="title_view_profile">View Profile</string>
@@ -14,5 +15,14 @@
     <string name="title_send_feedback">Send Feedback</string>
     <string name="title_send_message">Send Message</string>
     <string name="title_read_message">Read Message</string>
-    <string name="title_login">Login</string>
+    <string name="title_login">Login</string>    
+    
+    <string name="title_activity_write_nfc">Write NFC Tag</string>
+    <string name="write_tag">Write NFC Tag</string>
+    
+    <string name="add_cache_button_text">Add Cache</string>
+    <string name="profile_button_text">Profile</string>
+    <string name="inbox_button_text">Messages</string>
+    <string name="rankings_button_text">Rankings</string>
+    <string name="feedback_button_text">Feedback</string>
 </resources>

@@ -4,6 +4,14 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-sdk android:minSdkVersion="12"
+        android:targetSdkVersion="15"
+        android:maxSdkVersion="16" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+        
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -51,6 +59,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
+        <activity android:name=".ScanCacheActivity">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <data android:mimeType="application/nfcgeo"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+        	</intent-filter>        
+        	<meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.NFCGeo.MainMenu"/>
+		</activity>
         <activity
             android:name=".AddCacheActivity"
             android:label="@string/title_add_cache">
