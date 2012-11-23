@@ -40,12 +40,12 @@ public class DatabaseHandler{
 		return temp;
 	}
 	
-	public boolean newUser(String username, String hash) throws SQLException{
-		Statement s = con.createStatement();
-		ResultSet data = s.executeQuery("INSERT INTO auth(user, hash) VALUES(/'" + username + "/',/'" + hash + "/')");
-		if(r.next()) return true;
-		else return false;
-	}
+//	public boolean newUser(String username, String hash) throws SQLException{
+//		Statement s = con.createStatement();
+//		ResultSet data = s.executeQuery("INSERT INTO auth(user, hash) VALUES(/'" + username + "/',/'" + hash + "/')");
+//		if(r.next()) return true;
+//		else return false;
+//	}
 	
 	public String queryColumn(String query, String select) throws SQLException{
 		Statement s = con.createStatement();
