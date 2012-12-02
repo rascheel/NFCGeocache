@@ -14,8 +14,14 @@ public class MainMenu extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        try
+        {
     	dbHandle = new DatabaseHandler("","root","rootpw");
     	dbHandle.openDB();
+        }
+        catch(Exception e)
+        {
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
     }
