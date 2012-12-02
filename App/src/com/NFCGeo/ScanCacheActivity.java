@@ -32,11 +32,12 @@ public class ScanCacheActivity extends Activity {
 			Tag myTag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 			byte[] tagId = myTag.getId();
 			
-			//Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            //NdefMessage msg = (NdefMessage) rawMsgs[0];
+			Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage msg = (NdefMessage) rawMsgs[0];
 
 			//displayMessage(new String(msg.getRecords()[0].getPayload()));
-			displayMessage("Cache Found: " + MainMenu.ByteArrayToHexString(tagId));
+			displayMessage("Cache Found! ID: " + MainMenu.ByteArrayToHexString(tagId) +
+					" Name: " + msg);
 	    }
 				
         
