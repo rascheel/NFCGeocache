@@ -9,7 +9,7 @@ public class Caching {
 		
 	}
 	
-	public void Add(Cache c) throws SQLException{
+	public static void Add(Cache c) throws SQLException{
 		String temp = new String("");
 		
 		temp += ("INSERT INTO caches(name,creator,loc_lat,loc_long) values(\'");
@@ -21,7 +21,7 @@ public class Caching {
 		MainMenu.dbHandle.addDB(temp);
 	}
 	
-	public Cache[] GetName(String name) throws SQLException{
+	public static Cache[] GetName(String name) throws SQLException{
 		String temp = new String("");
 		
 		temp += ("SELECT * FROM caches WHERE name=\'");
@@ -51,7 +51,7 @@ public class Caching {
 		return c;
 	}
 	
-	public Cache[] GetCreator(String creator) throws SQLException{
+	public static Cache[] GetCreator(String creator) throws SQLException{
 		String temp = new String("");
 		
 		temp += ("SELECT * FROM caches WHERE creator=\'");
@@ -81,7 +81,7 @@ public class Caching {
 		return c;
 	}
 	
-	public Cache[] GetLocation(int pos_lat, int pos_long, int offset) throws SQLException{
+	public static Cache[] GetLocation(int pos_lat, int pos_long, int offset) throws SQLException{
 		String temp = new String("");
 		
 		temp += ("SELECT * FROM caches WHERE loc_lat BETWEEN ");
@@ -107,7 +107,7 @@ public class Caching {
 		
 		for(i = 0; i < size; i++){
 			c[i] = new Cache();
-			c[i].setId(r.getInt("id"));
+			c[i].setId(r.getString("id"));
 			c[i].setName(r.getString("name"));
 			c[i].setCreator(r.getString("creator"));
 			c[i].setLoc_lat(r.getInt("loc_lat"));
@@ -118,7 +118,7 @@ public class Caching {
 		return c;
 	}
 	
-	public Cache GetID(int id) throws SQLException{
+	public static Cache GetID(int id) throws SQLException{
 		String temp = new String("");
 		
 		temp += ("SELECT * FROM caches WHERE id=");
