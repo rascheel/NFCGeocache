@@ -16,7 +16,6 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,18 +28,18 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 	private NfcAdapter nAdapter; /* <NFC Adapter * */
 	private TextView nTextView; /* < TextView used for output * */
 	private Button nWriteButton;
+		
+	private String newCacheIdString;
 	
 	private boolean writeModeEnabled; /* <Write mode flag * */
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_add_cache);
-		// getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		
 		nAdapter = NfcAdapter.getDefaultAdapter(this);
 		
-		
+		setContentView(R.layout.activity_add_cache);	
 		nWriteButton = (Button)findViewById(R.id.add_cache_button);
 		nWriteButton.setOnClickListener(this);
 		
@@ -49,12 +48,7 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 		
 	}
 
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		//getMenuInflater().inflate(R.menu.activity_write_tag, menu);
-		return true;
-	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -76,7 +70,10 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 
 			// Create a new Tag to write to the NFC Tag
 			Tag newCache = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-
+			
+			byte[] tagID = newCache.getId();
+			newCacheIdString =  MainMenu.ByteArrayToHexString(tagID);
+			
 			writeTag(newCache);
 		}
 	}
@@ -116,7 +113,7 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 		NdefRecord appRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeTypeBytes, new byte[0], cachePayload);
 					
 		
-		nMessage = new NdefMessage(new NdefRecord[] {playStoreLink, appRecord} );
+		nMessage = new NdefMessage(new NdefRecord[] {appRecord, playStoreLink} );
 
 		try {
 			// Check for NDEF-style format first
@@ -135,7 +132,7 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 				
 				ndef.writeNdefMessage(nMessage);
 				// Success!
-				displayMessage("Tag written successfully.");
+				displayMessage("Tag written successfully.Cache ID: " + newCacheIdString);
 				return true;
 
 				// Try to write the data to the NFC Tag
@@ -146,9 +143,10 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 					// Open communication with the NFC tag
 					nFormat.connect();
 					nFormat.format(nMessage);
-
-					// Success!
-					displayMessage("Tag written successfully.");
+					
+					// Success!			
+										
+					displayMessage("Tag written successfully.Cache ID: " + newCacheIdString);
 					return true;
 
 				} catch (IOException e) { // If NDEF formatting failed
@@ -200,6 +198,7 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 
 	public void onClick(View v) 
 	{
+		nTextView = (TextView)findViewById(R.id.add_cache_text_view);
 		if (v.getId() == R.id.add_cache_button)
 		{
 			displayMessage("Hold phone against an NFC Tag for a few seconds.");
