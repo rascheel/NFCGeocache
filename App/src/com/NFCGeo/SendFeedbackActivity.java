@@ -14,9 +14,7 @@ public class SendFeedbackActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_feedback);
 
-        EditText feedback = (EditText) findViewById(R.id.feedbackField);
 
-        feedback.setText("Enter Feedback here");
     }
 
     public void sendFeedback(View view)

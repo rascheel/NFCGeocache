@@ -1,26 +1,30 @@
 package com.NFCGeo;
 
+import java.sql.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Context;
+
 
 public class MainMenu extends Activity
 {
+    final Context context = this;
     public static DatabaseHandler dbHandle;
+    public static boolean dbAvailable;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        try
+        setupDatabaseConnection();
+        if(!dbAvailable)
         {
-    	dbHandle = new DatabaseHandler("","root","rootpw");
-    	dbHandle.openDB();
-        }
-        catch(Exception e)
-        {
+            noDatabaseConnection(context);            
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
@@ -87,4 +91,39 @@ public class MainMenu extends Activity
 
 		return hexString;
 	}
+
+    public static void setupDatabaseConnection()
+    {
+        try
+        {
+    	dbHandle = new DatabaseHandler("","root","rootpw");
+    	dbHandle.openDB();
+        dbAvailable = true;
+        }
+        catch(Exception e)
+        {
+            dbAvailable = false;
+        }
+    }
+
+    public static void noDatabaseConnection(Context _context)
+    {
+             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(_context);
+
+            alertBuilder.setMessage("No connection to the servers could be made at this time. Please try again later.");
+            alertBuilder.setCancelable(false);
+            alertBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id)
+                       {
+                            dialog.cancel();
+                       }
+            });
+
+            AlertDialog alert = alertBuilder.create();
+
+            alert.show();
+    }
+
+
+            
 }

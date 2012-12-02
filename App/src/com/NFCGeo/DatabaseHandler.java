@@ -21,14 +21,9 @@ public class DatabaseHandler{
 		return Boolean.toString(con.isValid(t));
 	}
 	
-	public void openDB(){
-		try {
+	public void openDB() throws Exception{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			con = DriverManager.getConnection(address, username, password);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public String userAuth(String username) throws SQLException{

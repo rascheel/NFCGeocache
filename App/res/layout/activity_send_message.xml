@@ -50,5 +50,6 @@
         android:layout_weight="1"
         android:layout_below="@id/subjectField"
         android:layout_above="@id/sendButton"
+        android:gravity = "top"
         />
 </RelativeLayout>

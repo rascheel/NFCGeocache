@@ -19,6 +19,8 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:layout_above="@id/sendButton"
+        android:gravity = "top"
+        android:hint = "Enter feedback here"
         />
 
 </RelativeLayout>

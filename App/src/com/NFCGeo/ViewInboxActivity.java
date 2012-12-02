@@ -34,11 +34,17 @@ public class ViewInboxActivity extends Activity
             testMessages[i].setSubject(i + ": Test Subject");
             testMessages[i].setBody("Test Body");
         }*/
-
+        Message[] messages;
         inbox = new Messaging();
-
-        Message[] messages = inbox.retrieveMessages(MainMenu.dbHandle, "Ryan");
-
+        if(MainMenu.dbAvailable)
+        {
+            messages = inbox.retrieveMessages(MainMenu.dbHandle, "Ryan");
+        }
+        else
+        {
+            messages = new Message[0];
+            MainMenu.noDatabaseConnection(this);
+        }
         adapter = new ArrayAdapter<Message>(this, android.R.layout.simple_list_item_1, android.R.id.text1, messages);
 
         listView.setAdapter(adapter);

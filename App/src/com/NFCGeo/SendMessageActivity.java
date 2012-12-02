@@ -39,7 +39,9 @@ public class SendMessageActivity extends Activity
     }
 
 	public void sendMessage(View view)
-	{	
+	{
+        if(MainMenu.dbAvailable)
+        {    
 		Message message = new Message();
 		message.setSender(messageSender);
 		message.setRecipient(toField.getText().toString());
@@ -47,5 +49,10 @@ public class SendMessageActivity extends Activity
 		message.setBody(bodyField.getText().toString());
 
         ViewInboxActivity.inbox.Send(MainMenu.dbHandle, message);
+        }
+        else
+        {
+            MainMenu.noDatabaseConnection(this);
+        }
 	}
 }
