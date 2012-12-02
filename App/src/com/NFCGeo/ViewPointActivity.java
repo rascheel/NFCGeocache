@@ -22,16 +22,16 @@ public class ViewPointActivity extends Activity {
 	    switch (Integer.parseInt(message))
 	    {
 	    	case 1:
-	    		cache = new Cache(1, "Title 1", 19240000, -99120000, "Creator 1", 0, 0);
+	    		cache = new Cache("01", "Title 1", 19240000, -99120000, "Creator 1");
 	    		break;
 	    	case 2:
-	    		cache = new Cache(2, "Title 2", 35410000, 139460000, "Creator 2", 0, 0);
+	    		cache = new Cache("02", "Title 2", 35410000, 139460000, "Creator 2");
 	    		break;
 	    	case 3:
-	    		cache = new Cache(3, "Title 3", 42026167, -93648040, "Creator 3", 0, 0);
+	    		cache = new Cache("03", "Title 3", 42026167, -93648040, "Creator 3");
 	    		break;
 	    	default:
-	    		cache = new Cache(0, "", 0, 0, null, 0, 0);
+	    		cache = new Cache("04", "", 0, 0, null);
 	    }
 	    
 	    //Formats the latitude/longitude of the cache

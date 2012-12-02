@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 @TargetApi(14)
@@ -75,8 +76,13 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 			byte[] tagID = newTag.getId();
 			newCacheIdString =  MainMenu.ByteArrayToHexString(tagID);
 			
+			// Get name of cache
+			EditText editText = (EditText) findViewById(R.id.cache_name_edit_message);
+			String cacheName = editText.getText().toString();
+			
+			
 			// Try to write the NFC tag, if successful add Cache to database
-			if (writeTag(newTag))
+			if (writeTag(newTag, cacheName))
 			{
 				// Get current user name
 				String username = "";
@@ -84,23 +90,20 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 				// Get current location
 				int lattitude = 0;
 				int longitude = 0;
-				
-				// Create a name for the Cache
-				String cacheName = "";
-				
+								
 				// Create new Cache 
 				Cache newCache = new Cache(newCacheIdString, cacheName,
 						lattitude, longitude, username);
 				
-				// Attempt to add new Cache to database
-				try {
-					Caching.Add(newCache);
-				} catch (SQLException e) {
-					
-					// Cache not successfully added to database
-					// For now, just alert the user that it did not work.
-					displayMessage("Unable to add Cache, please try again later.");
-				}
+//				// Attempt to add new Cache to database
+//				try {
+//					Caching.Add(newCache);
+//				} catch (SQLException e) {
+//					
+//					// Cache not successfully added to database
+//					// For now, just alert the user that it did not work.
+//					displayMessage("Unable to add Cache, please try again later.");
+//				}
 			}
 		}
 	}
@@ -118,7 +121,7 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 	 *            Tag object containing information to write to the NFC tag.
 	 * @return true if tag was successfully written, false otherwise
 	 */
-	private boolean writeTag(Tag t) {
+	private boolean writeTag(Tag t, String cacheName) {
 		
 		NdefMessage nMessage;
 		
@@ -129,7 +132,7 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 				.createApplicationRecord("com.NFCGeo");
 
 		// Actual data to write to the Cache
-		byte[] cachePayload = (new String("First Tag")).getBytes();		
+		byte[] cachePayload = (cacheName).getBytes();		
 		
 		
 		// Create byte array that stores our MIME type formatted as ASCII text
@@ -159,7 +162,8 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 				
 				ndef.writeNdefMessage(nMessage);
 				// Success!
-				displayMessage("Tag written successfully.Cache ID: " + newCacheIdString);
+				displayMessage("Tag written successfully.Cache ID: " + newCacheIdString +
+						" Name: " + cacheName);
 				return true;
 
 				// Try to write the data to the NFC Tag
@@ -173,7 +177,8 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 					
 					// Success!			
 										
-					displayMessage("Tag written successfully.Cache ID: " + newCacheIdString);
+					displayMessage("Tag written successfully.Cache ID: " + newCacheIdString +
+							" Name: " + cacheName);
 					return true;
 
 				} catch (IOException e) { // If NDEF formatting failed
