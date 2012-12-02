@@ -1,17 +1,17 @@
 package com.NFCGeo;
 
 public class Cache {
-	private int id;
-	private String name;
-	private int loc_lat;
-	private int loc_long;
-	private String creator;
-	private int timesFound;
-	private int rating;
+	private String id;			/** < Unique hardware ID of NFC tag*/
+	private String name;		/** < Name of Cache (determined by creator) */
+	private int loc_lat;		/** < Lattitude location */
+	private int loc_long;		/** < Longitude location */
+	private String creator;		/** < Username of creator */
+	private int timesFound;	/** < Number of times Cache has been found */
+	private int rating;		/** < Average user rating */
 	
 	public Cache()
 	{
-		this.id = 0;
+		this.id = "";
 		this.name = "";
 		this.loc_lat = 0;
 		this.loc_long = 0;
@@ -20,19 +20,19 @@ public class Cache {
 		this.rating = 0;
 	}
 	
-	public Cache(int id, String name, int loc_lat, int loc_long, String creator, int timesFound, int rating) {
+	public Cache(String id, String name, int loc_lat, int loc_long, String creator) {
 		this.id = id;
 		this.name = name;
 		this.loc_lat = loc_lat;
 		this.loc_long = loc_long;
 		this.creator = creator;
-		this.timesFound = timesFound;
-		this.rating = rating;
+		this.timesFound = 0;
+		this.rating = 0;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {

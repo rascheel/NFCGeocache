@@ -2,6 +2,7 @@ package com.NFCGeo;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.sql.SQLException;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -69,12 +70,38 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 			writeModeEnabled = false;
 
 			// Create a new Tag to write to the NFC Tag
-			Tag newCache = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+			Tag newTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 			
-			byte[] tagID = newCache.getId();
+			byte[] tagID = newTag.getId();
 			newCacheIdString =  MainMenu.ByteArrayToHexString(tagID);
 			
-			writeTag(newCache);
+			// Try to write the NFC tag, if successful add Cache to database
+			if (writeTag(newTag))
+			{
+				// Get current user name
+				String username = "";
+				
+				// Get current location
+				int lattitude = 0;
+				int longitude = 0;
+				
+				// Create a name for the Cache
+				String cacheName = "";
+				
+				// Create new Cache 
+				Cache newCache = new Cache(newCacheIdString, cacheName,
+						lattitude, longitude, username);
+				
+				// Attempt to add new Cache to database
+				try {
+					Caching.Add(newCache);
+				} catch (SQLException e) {
+					
+					// Cache not successfully added to database
+					// For now, just alert the user that it did not work.
+					displayMessage("Unable to add Cache, please try again later.");
+				}
+			}
 		}
 	}
 
