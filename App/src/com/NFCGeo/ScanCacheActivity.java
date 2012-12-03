@@ -35,9 +35,11 @@ public class ScanCacheActivity extends Activity {
 			Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             NdefMessage msg = (NdefMessage) rawMsgs[0];
 
-			//displayMessage(new String(msg.getRecords()[0].getPayload()));
+            NdefRecord tagRecord = msg.getRecords()[0];
+            String cacheName = new String(tagRecord.getPayload());
+            
 			displayMessage("Cache Found! ID: " + MainMenu.ByteArrayToHexString(tagId) +
-					" Name: " + msg);
+					" Name: " + cacheName);
 	    }
 				
         
