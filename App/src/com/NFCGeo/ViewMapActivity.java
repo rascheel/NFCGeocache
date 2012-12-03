@@ -44,6 +44,8 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setPositiveButton("OK", null);
     	
+    	LocationService locServ = new LocationService();
+    	
         if (!gpsEnabled)
         {
         	builder.setMessage("GPS is not enabled.");
@@ -52,14 +54,12 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         else
         {
         	lm.requestSingleUpdate(new Criteria(), this, null);
+        	loc = locServ.getLocation();
         	loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
-        GeoPoint p;
-        if (loc != null)
-        {
-        	p = new GeoPoint((int)(1000000*loc.getLatitude()), (int)(1000000*loc.getLongitude()));
-        }
-        else
+        GeoPoint p = locServ.getGeoPoint();
+        
+        if (p== null)
         {
         	p = new GeoPoint(42023350,-93625622);
         }
@@ -80,8 +80,7 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         Cache[] caches;
         
         try {
-        	Caching caching = new Caching();
-        	caches = caching.GetLocation(42026167, -93648040, 1000000);
+        	caches = Caching.GetLocation(42026167, -93648040, 1000000);
 		} catch (Exception e) {
 			builder.setMessage(e.toString() + "\n" + e.getMessage());
 			builder.show();

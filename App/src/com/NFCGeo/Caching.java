@@ -3,7 +3,7 @@ package com.NFCGeo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Caching {
+public abstract class Caching {
 	
 	public Caching(){
 		
