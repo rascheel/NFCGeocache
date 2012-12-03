@@ -84,6 +84,10 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 			// Try to write the NFC tag, if successful add Cache to database
 			if (writeTag(newTag, cacheName))
 			{
+				// Message to output
+				String result = "Tag written successfully. ID: " + newCacheIdString +
+						" Name: " + cacheName;
+				
 				// Get current user name
 				String username = "";
 				
@@ -94,16 +98,27 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 				// Create new Cache 
 				Cache newCache = new Cache(newCacheIdString, cacheName,
 						lattitude, longitude, username);
+				if (MainMenu.dbAvailable)
+				{
+					// Attempt to add new Cache to database
+					try {
+						Caching.Add(newCache);
+					} catch (SQLException e) {
+
+						// Cache not successfully added to database
+						// For now, just alert the user that it did not work.
+						result += " ** Database communication error. Unable to add Cache. :-(";
+					}
+				}
+				else
+				{
+					result += " ** Database communication error. Unable to add Cache. :-(";
+				}
 				
-//				// Attempt to add new Cache to database
-//				try {
-//					Caching.Add(newCache);
-//				} catch (SQLException e) {
-//					
-//					// Cache not successfully added to database
-//					// For now, just alert the user that it did not work.
-//					displayMessage("Unable to add Cache, please try again later.");
-//				}
+								
+				displayMessage(result);
+				
+				
 			}
 		}
 	}
@@ -161,9 +176,8 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 				}
 				
 				ndef.writeNdefMessage(nMessage);
+				
 				// Success!
-				displayMessage("Tag written successfully.Cache ID: " + newCacheIdString +
-						" Name: " + cacheName);
 				return true;
 
 				// Try to write the data to the NFC Tag
@@ -176,9 +190,6 @@ public class AddCacheActivity extends Activity implements OnClickListener {
 					nFormat.format(nMessage);
 					
 					// Success!			
-										
-					displayMessage("Tag written successfully.Cache ID: " + newCacheIdString +
-							" Name: " + cacheName);
 					return true;
 
 				} catch (IOException e) { // If NDEF formatting failed
