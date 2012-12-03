@@ -7,13 +7,20 @@
     android:gravity="center" 
     android:padding="25dp"
     >
-
+    
+	<EditText android:id="@+id/cache_name_edit_message"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/cache_name" />
+    
     <Button
         android:id="@+id/add_cache_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:text="@string/write_tag"
         android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:padding="25dp"
         android:textSize="25sp"
         />
