@@ -4,6 +4,7 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -38,12 +39,13 @@ public class LocationService extends MapActivity implements LocationListener{
     		 return new GeoPoint(0,0);
      }
      
-     public Location getLocation()
-     {
-
-     	return lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-     	
-     }
+    public Location getLocation()
+    {
+    	lm.requestSingleUpdate(new Criteria(), this, null);
+    	return lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);    	
+    }
+     
+     
 
 	public void onLocationChanged(Location arg0) {
 		// TODO Auto-generated method stub
