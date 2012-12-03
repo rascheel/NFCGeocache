@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Context;
+import android.widget.Button;
 
 
 public class MainMenu extends Activity
@@ -16,6 +17,13 @@ public class MainMenu extends Activity
     final Context context = this;
     public static DatabaseHandler dbHandle;
     public static boolean dbAvailable;
+    public static User user = null;
+    public static boolean isLoggedIn = false;
+
+    public Button addCacheButton;
+    public Button profileButton;
+    public Button inboxButton;
+    public Button feedbackButton;
 
     /** Called when the activity is first created. */
     @Override
@@ -27,7 +35,29 @@ public class MainMenu extends Activity
             noDatabaseConnection(context);            
         }
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.main);
+        addCacheButton = (Button) findViewById(R.id.AddCacheButton);
+        profileButton = (Button) findViewById(R.id.ViewProfileButton);
+        inboxButton = (Button) findViewById(R.id.ViewInboxButton);
+        feedbackButton = (Button) findViewById(R.id.SendFeedbackButton);
+       
+
+        setButtonsEnabled(false);
+
+    }
+
+    public void onResume()
+    {
+        super.onResume();
+        if(isLoggedIn)
+        {
+            setButtonsEnabled(true);
+        }
+        else
+        {
+            setButtonsEnabled(false);
+        }
     }
     
     public void viewMap(View view) {
@@ -124,6 +154,28 @@ public class MainMenu extends Activity
             alert.show();
     }
 
+    public void setButtonsEnabled(boolean enabled)
+    {
+        addCacheButton.setEnabled(enabled);
+        profileButton.setEnabled(enabled);
+        inboxButton.setEnabled(enabled);
+        feedbackButton.setEnabled(enabled);
+    }
+
+
+    public static void login(User _user)
+    {
+        user = _user;
+        isLoggedIn = true;
+    }
+
+    public static void logoff()
+    {
+        user = null;
+        isLoggedIn = false;
+    }
+
+        
 
             
 }

@@ -13,6 +13,7 @@
         />
 
     <Button
+            android:id = "@+id/AddCacheButton"
             android:layout_width="fill_parent"
             android:layout_height="0px"
             android:layout_weight = "1"
@@ -21,6 +22,7 @@
         />
 
     <Button
+            android:id = "@+id/ViewProfileButton"
             android:layout_width="fill_parent"
             android:layout_height="0px"
             android:layout_weight = "1"
@@ -29,6 +31,7 @@
         />
 
     <Button
+            android:id = "@+id/ViewInboxButton"
             android:layout_width="fill_parent"
             android:layout_height="0px"
             android:layout_weight = "1"
@@ -45,6 +48,7 @@
         />
 
     <Button
+            android:id = "@+id/SendFeedbackButton"
             android:layout_width="fill_parent"
             android:layout_height="0px"
             android:layout_weight = "1"
