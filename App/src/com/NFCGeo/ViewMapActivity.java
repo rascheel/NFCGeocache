@@ -34,10 +34,6 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_map);
         
-        LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        final boolean gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        Location loc = null;
-        
         MapView mapView = (MapView) findViewById(R.id.mapview);
         MapController mapController = mapView.getController();
         
@@ -45,19 +41,18 @@ public class ViewMapActivity extends MapActivity implements LocationListener
     	builder.setPositiveButton("OK", null);
     	
     	LocationService locServ = new LocationService();
+    	GeoPoint p = null;
     	
-        if (!gpsEnabled)
+        if (!locServ.gpsEnabled())
         {
         	builder.setMessage("GPS is not enabled.");
         	builder.show();
+        	
         }
         else
         {
-        	lm.requestSingleUpdate(new Criteria(), this, null);
-        	loc = locServ.getLocation();
-        	loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            p = locServ.getGeoPoint();        	
         }
-        GeoPoint p = locServ.getGeoPoint();
         
         if (p== null)
         {
