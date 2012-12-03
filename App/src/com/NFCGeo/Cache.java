@@ -1,13 +1,20 @@
 package com.NFCGeo;
 
 public class Cache {
-	private String id;			/** < Unique hardware ID of NFC tag*/
-	private String name;		/** < Name of Cache (determined by creator) */
-	private int loc_lat;		/** < Lattitude location */
-	private int loc_long;		/** < Longitude location */
-	private String creator;		/** < Username of creator */
-	private int timesFound;	/** < Number of times Cache has been found */
-	private int rating;		/** < Average user rating */
+	/** < Unique hardware ID of NFC tag*/
+	private String id;			
+	/** < Name of Cache (determined by creator) */
+	private String name;		
+	/** < Lattitude location */
+	private int loc_lat;		
+	/** < Longitude location */
+	private int loc_long;		
+	/** < Username of creator */
+	private String creator;	
+	/** < Number of times Cache has been found */
+	private int timesFound;	
+	/** < Average user rating */
+	private int rating;		
 	
 	public Cache()
 	{

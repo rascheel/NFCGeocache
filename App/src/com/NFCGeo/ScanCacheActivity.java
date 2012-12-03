@@ -17,13 +17,15 @@ import android.widget.TextView;
 public class ScanCacheActivity extends Activity {
 	
 	TextView nTextView;
+	public final static String CACHE_NAME = "com.NFCGeo.CACHENAME";
+	public final static String CACHE_ID = "com.NFCGeo.CACHEID";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);    
-		setContentView(R.layout.activity_found_cache);
-
-		nTextView = (TextView)findViewById(R.id.found_cache_text_view);
+		
+		//setContentView(R.layout.activity_found_cache);
+		//nTextView = (TextView)findViewById(R.id.found_cache_text_view);
 		
 		// Check to see if NFC Tag was scanned to start this activity
 		Intent intent = getIntent();
@@ -38,8 +40,18 @@ public class ScanCacheActivity extends Activity {
             NdefRecord tagRecord = msg.getRecords()[0];
             String cacheName = new String(tagRecord.getPayload());
             
-			displayMessage("Cache Found! ID: " + MainMenu.ByteArrayToHexString(tagId) +
-					" Name: " + cacheName);
+            // Create Intent to use to start the ViewPoint Activity that shows the Cache Info page
+            Intent newIntent = new Intent(this, ViewPointActivity.class);
+            
+            // Store Cache name and ID in the Intent
+            newIntent.putExtra(CACHE_ID, MainMenu.ByteArrayToHexString(tagId));
+            newIntent.putExtra(CACHE_NAME, cacheName);
+            
+            startActivity(newIntent);
+            
+            
+//			displayMessage("Cache Found! ID: " + MainMenu.ByteArrayToHexString(tagId) +
+//					" Name: " + cacheName);
 	    }
 				
         
