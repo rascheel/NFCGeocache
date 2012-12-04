@@ -127,7 +127,7 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
 					Cache newCache = new Cache(newCacheIdString, cacheName,
 							lattitude, longitude, username);
 					
-					addCache(newCache, result);
+					result += addCache(newCache, result);
 	            }
 	        	else
 	        	{
@@ -141,14 +141,16 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
 			{
 				// Message to output
 				result = "Tag written successfully. ID: " + newCacheIdString +
-						" Name: " + cacheName;
+						" Name: " + cacheName + result;
 
 				
 			}
+			
+			displayMessage(result);
 		}
 	}
 
-	private void addCache(Cache c, String toDisplay)
+	private String addCache(Cache c, String toDisplay)
 	{
 		
 		
@@ -168,11 +170,9 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
 		{
 			toDisplay += " ** Database communication error. Unable to add Cache. :-(";
 		}
-		
-						
-		displayMessage(toDisplay);
-		
-		
+								
+		return toDisplay;
+				
 	}
 	
 	

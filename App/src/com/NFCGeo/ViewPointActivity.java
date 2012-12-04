@@ -27,8 +27,15 @@ public class ViewPointActivity extends Activity {
 		Cache foundMe;
 		
 		try {
-
 			foundMe = Caching.GetID(cacheID);
+		} catch (SQLException e) {
+			
+			foundMe = null;
+		}
+		
+		if (foundMe!=null) {
+
+			
 
 			boolean found = intent.getBooleanExtra(
 					ScanCacheActivity.CACHE_FOUND, false);
@@ -112,7 +119,8 @@ public class ViewPointActivity extends Activity {
 
 			setContentView(view);
 
-		} catch (SQLException e) {
+		} 
+		else{
 
 			LinearLayout view = new LinearLayout(this);
 
