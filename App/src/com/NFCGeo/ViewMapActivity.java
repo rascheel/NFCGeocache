@@ -4,7 +4,6 @@ package com.NFCGeo;
  * you need to add this build path to the project:
  * C:\Users\Kaitlin\AppData\Local\Android\android-sdk\add-ons\addon-google_apis-google-8\libs\maps.jar
  * */
-import java.sql.SQLException;
 import java.util.List;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -15,7 +14,6 @@ import com.google.android.maps.OverlayItem;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -42,10 +40,8 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         MapController mapController = mapView.getController();
         
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("OK", null);
-    
-        // LocationService locServ = new LocationService();
-    
+    	builder.setPositiveButton("OK", null);
+    	
         if (!gpsEnabled)
         {
         	builder.setMessage("GPS is not enabled.");
@@ -56,9 +52,7 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         	lm.requestSingleUpdate(new Criteria(), this, null);
         	loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
-        
         GeoPoint p;
-        
         if (loc != null)
         {
         	p = new GeoPoint((int)(1000000*loc.getLatitude()), (int)(1000000*loc.getLongitude()));
@@ -73,32 +67,41 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         mapController.setZoom(15);
         mapView.setBuiltInZoomControls(true);
         
-        List<Overlay> mapOverlays = mapView.getOverlays();
-        
-        //Sets marker image
-        Drawable drawable = this.getResources().getDrawable(R.drawable.x);
-        MapOverlay itemizedoverlay = new MapOverlay(drawable, this);
-        
         // http://itouchmap.com/latlong.html
         
-        Cache[] caches;
-        
         try {
-        	caches = Caching.GetLocation(42026167, -93648040, 1000000);
+        	//Sets marker image
+        	List<Overlay> mapOverlays = mapView.getOverlays();
+            Drawable drawable = this.getResources().getDrawable(R.drawable.x);
+            MapOverlay itemizedoverlay = new MapOverlay(drawable, this);
+        	
+        	Cache[] caches = Caching.GetLocation(42023350, -93625622, 1000000);
+        	
+        	if (caches != null)
+        	{
+	            for (int i = 0; i < caches.length; i++)
+	            {
+	            	OverlayItem overlayitem = new OverlayItem(new GeoPoint(caches[i].getLoc_lat(), caches[i].getLoc_long()), caches[i].getName(), "" + caches[i].getId());
+	                itemizedoverlay.addOverlay(overlayitem);
+	            }
+	            
+	            //Adds the overlay to the map
+	            mapOverlays.add(itemizedoverlay);
+        	}
+        	else
+        	{
+        		builder.setMessage("Not connected to the database.");
+        		builder.show();
+        	}
+        	Drawable drawable2 = this.getResources().getDrawable(R.drawable.dot);
+            MapOverlay itemizedoverlay2 = new MapOverlay(drawable2, this);
+            OverlayItem overlayitem = new OverlayItem(new GeoPoint(42023350, -93625622), "", "0");
+            itemizedoverlay2.addOverlay(overlayitem);
+            mapOverlays.add(itemizedoverlay2);
 		} catch (Exception e) {
-			builder.setMessage(e.toString() + "\n" + e.getMessage());
+			builder.setMessage("ERROR: " + e.toString());
 			builder.show();
-			caches = new Cache[0];
 		}
-		
-        for (int i = 0; i < caches.length; i++)
-        {
-        	OverlayItem overlayitem = new OverlayItem(new GeoPoint(caches[i].getLoc_lat(), caches[i].getLoc_long()), caches[i].getName(), "" + caches[i].getId());
-            itemizedoverlay.addOverlay(overlayitem);
-        }
-        
-        //Adds the overlay to the map
-        mapOverlays.add(itemizedoverlay);
     }
  
     @Override
@@ -106,21 +109,25 @@ public class ViewMapActivity extends MapActivity implements LocationListener
         return false;
     }
 
+	@Override
 	public void onLocationChanged(Location arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
 	public void onProviderDisabled(String arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
 	public void onProviderEnabled(String arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
 		

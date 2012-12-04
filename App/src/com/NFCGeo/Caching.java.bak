@@ -92,34 +92,30 @@ public abstract class Caching {
 		temp += Integer.toString(pos_long-offset);
 		temp += (" AND ");
 		temp += Integer.toString(pos_long+offset);
-		try
-		{
-			ResultSet r = MainMenu.dbHandle.queryTable(temp);
-			
-			int size = 0;
-			while(r.next()){
-				size++;
-			}
-			
-			r.first();
-			
-			Cache[] c = new Cache[size];
-			int i;
-			
-			for(i = 0; i < size; i++){
-				c[i] = new Cache();
-				c[i].setId(r.getString("id"));
-				c[i].setName(r.getString("name"));
-				c[i].setCreator(r.getString("creator"));
-				c[i].setLoc_lat(r.getInt("loc_lat"));
-				c[i].setLoc_long(r.getInt("loc_long"));
-				r.next();
-			}
-			return c;
-		} catch(Exception e)
-		{
-			return null;
+		
+		ResultSet r = MainMenu.dbHandle.queryTable(temp);
+		
+		int size = 0;
+		while(r.next()){
+			size++;
 		}
+		
+		r.first();
+		
+		Cache[] c = new Cache[size];
+		int i;
+		
+		for(i = 0; i < size; i++){
+			c[i] = new Cache();
+			c[i].setId(r.getString("id"));
+			c[i].setName(r.getString("name"));
+			c[i].setCreator(r.getString("creator"));
+			c[i].setLoc_lat(r.getInt("loc_lat"));
+			c[i].setLoc_long(r.getInt("loc_long"));
+			r.next();
+		}
+		
+		return c;
 	}
 	
 	public static Cache GetID(int id) throws SQLException{
