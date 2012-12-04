@@ -24,7 +24,10 @@ public class ViewPointActivity extends Activity {
 	    String cacheID = intent.getStringExtra(ScanCacheActivity.CACHE_ID);
 	    String locationRecord = intent.getStringExtra(ScanCacheActivity.CACHE_LOCATION);
 	    
+	    boolean found = intent.getBooleanExtra(ScanCacheActivity.CACHE_FOUND, false);
+	    
 	    String locationValues[] = locationRecord.split(locationRecord);
+	    
 	    int lat = Integer.parseInt(locationValues[0]);
 	    int lon = Integer.parseInt(locationValues[1]);
 	    
@@ -72,7 +75,13 @@ public class ViewPointActivity extends Activity {
 	    
 	    TextView title = new TextView(this);
 	    title.setTextSize(40);
-	    title.setText(cache.getName());
+	    
+	    String titleText = "";
+	    
+	    if (found) titleText = "Found Cache \"" + cache.getName() + "!";
+	    else titleText = cache.getName();
+	    
+	    title.setText(titleText);
 	    
 	    TextView creator = new TextView(this);
 	    creator.setText("Created by: " + cache.getCreator());
@@ -83,8 +92,8 @@ public class ViewPointActivity extends Activity {
 	    TextView rating = new TextView(this);
 	    rating.setText("Rating: " + cache.getRating() + " stars");
 	    
-	    TextView found = new TextView(this);
-	    found.setText("Times Found: " + cache.getTimesFound());
+	    TextView timesFound = new TextView(this);
+	    timesFound.setText("Times Found: " + cache.getTimesFound());
 	    
 	    //Sets settings for the page layout
 	    view.setOrientation(LinearLayout.VERTICAL);
@@ -95,7 +104,7 @@ public class ViewPointActivity extends Activity {
 	    view.addView(creator);
 	    view.addView(loc);
 	    view.addView(rating);
-	    view.addView(found);
+	    view.addView(timesFound);
 	    
 	    setContentView(view);
     }

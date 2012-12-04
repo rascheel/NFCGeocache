@@ -46,6 +46,7 @@ public class MapOverlay extends ItemizedOverlay<OverlayItem>
 	  Intent intent = new Intent(mContext, ViewPointActivity.class);
 	  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	  intent.putExtra("cacheID", item.getSnippet());
+	  intent.putExtra(ScanCacheActivity.CACHE_FOUND, false);
 	  mContext.startActivity(intent);
 	  
 	  return true;
