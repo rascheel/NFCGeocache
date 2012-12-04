@@ -12,7 +12,7 @@ public class DatabaseHandler{
 	private static Connection con;
 	
 	public DatabaseHandler(String url, String un, String pw){
-		address = "jdbc:mysql://ggholson.student.iastate.edu:3306/nfcgeo";
+		address = "jdbc:mysql://10.30.74.157:3306/nfcgeo";
 		username = "root";
 		password = "rootpw";
 	}
