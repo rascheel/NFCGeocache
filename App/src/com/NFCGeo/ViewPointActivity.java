@@ -133,7 +133,6 @@ public class ViewPointActivity extends Activity {
 			TextView error = new TextView(this);
 			error.setText("** Database Error **");
 			
-			
 			// Sets settings for the page layout
 			view.setOrientation(LinearLayout.VERTICAL);
 			view.setPadding(16, 0, 16, 0);
