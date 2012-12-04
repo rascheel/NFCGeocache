@@ -81,7 +81,7 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
         int longitude = 0;
 
 		// Get current user name
-		String username = "";
+		String username = MainMenu.user.name();
 		
 		// Output string 
 		String result = "";
@@ -127,24 +127,23 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
 					Cache newCache = new Cache(newCacheIdString, cacheName,
 							lattitude, longitude, username);
 					
-					result += addCache(newCache, result);
+					// Try to write the NFC tag, if successful add Cache to database
+					if (writeTag(newTag, cacheName, lattitude, longitude, username))
+					{
+						// Message to output
+						result = "Tag written successfully. ID: " + newCacheIdString +
+								" Name: " + cacheName;				
+					}
+					
+					result = addCache(newCache, result);
 	            }
 	        	else
 	        	{
 	        		builder.setMessage("Unable to determine location.");
 		        	builder.show();
 	        	}
-	        }				
-	        
-			// Try to write the NFC tag, if successful add Cache to database
-			if (writeTag(newTag, cacheName, lattitude, longitude))
-			{
-				// Message to output
-				result = "Tag written successfully. ID: " + newCacheIdString +
-						" Name: " + cacheName + result;
+	        }				        
 
-				
-			}
 			
 			displayMessage(result);
 		}
@@ -189,7 +188,7 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
 	 *            Tag object containing information to write to the NFC tag.
 	 * @return true if tag was successfully written, false otherwise
 	 */
-	private boolean writeTag(Tag t, String cacheName, int locLat, int locLong) {
+	private boolean writeTag(Tag t, String cacheName, int locLat, int locLong, String username) {
 		
 		NdefMessage nMessage;
 		
@@ -204,6 +203,7 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
 		// Actual data to write to the Cache
 		byte[] cachePayload = (cacheName).getBytes();		
 		byte[] locationBytes = (location).getBytes();
+		byte[] userBytes = (username).getBytes();
 
 		
 		// Create byte array that stores our MIME type formatted as ASCII text
@@ -215,8 +215,11 @@ public class AddCacheActivity extends Activity implements OnClickListener, Locat
 				cachePayload);
 		NdefRecord locationRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeTypeBytes, new byte[0],
 				locationBytes);	
+		NdefRecord userRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeTypeBytes, new byte[0],
+				userBytes);
 		
-		nMessage = new NdefMessage(new NdefRecord[] {cacheNameRecord, locationRecord, playStoreLink} );
+		nMessage = new NdefMessage(new NdefRecord[] {cacheNameRecord, locationRecord, 
+				userRecord, playStoreLink} );
 
 		try {
 			// Check for NDEF-style format first

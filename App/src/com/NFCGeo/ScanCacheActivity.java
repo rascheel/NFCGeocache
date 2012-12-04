@@ -20,7 +20,9 @@ public class ScanCacheActivity extends Activity {
 	public final static String CACHE_NAME = "com.NFCGeo.CACHENAME";
 	public final static String CACHE_ID = "com.NFCGeo.CACHEID";
 	public final static String CACHE_LOCATION = "com.NFCGeo.CACHELOCATION";
+	public final static String CACHE_CREATOR = "com.NFCGeo.CACHECREATOR";
 	public final static String CACHE_FOUND = "com.NFCGeo.CACHEFOUND";
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,9 +43,11 @@ public class ScanCacheActivity extends Activity {
 
             NdefRecord cacheNameRecord = msg.getRecords()[0];
             NdefRecord cacheLocationRecord = msg.getRecords()[1];
+            NdefRecord cacheUserRecord = msg.getRecords()[2];
             
             String cacheName = new String(cacheNameRecord.getPayload());
             String locationString = new String(cacheLocationRecord.getPayload());
+            String userString = new String(cacheUserRecord.getPayload());
             
             // Create Intent to use to start the ViewPoint Activity that shows the Cache Info page
             Intent newIntent = new Intent(this, ViewPointActivity.class);
@@ -52,6 +56,7 @@ public class ScanCacheActivity extends Activity {
             newIntent.putExtra(CACHE_ID, MainMenu.ByteArrayToHexString(tagId));
             newIntent.putExtra(CACHE_NAME, cacheName);
             newIntent.putExtra(CACHE_LOCATION, locationString);
+            newIntent.putExtra(CACHE_CREATOR, userString);
             newIntent.putExtra(CACHE_FOUND, true);
 
             startActivity(newIntent);

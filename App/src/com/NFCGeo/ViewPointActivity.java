@@ -124,15 +124,10 @@ public class ViewPointActivity extends Activity {
 			// and there is location data available
 			if (found)
 			{
-				String locationRecord = intent.getStringExtra(ScanCacheActivity.CACHE_LOCATION);
-				
-				String locationValues[] = locationRecord.split(",");
 
-				int lat = Integer.parseInt(locationValues[0]);	
-				int lon = Integer.parseInt(locationValues[1]);
 
 				titleText = "Found Cache \"" + cacheName + "\" !";
-				loc.setText("Cache at: " + getLocation((double) lat, (double) lon) );
+
 			}
 				
 			else
@@ -140,7 +135,21 @@ public class ViewPointActivity extends Activity {
 				titleText = cacheName;
 			}
 			
+			String locationRecord = intent.getStringExtra(ScanCacheActivity.CACHE_LOCATION);
+			
+			String locationValues[] = locationRecord.split(",");
+
+			int lat = Integer.parseInt(locationValues[0]);	
+			int lon = Integer.parseInt(locationValues[1]);
+			
+			String creatorName = intent.getStringExtra(ScanCacheActivity.CACHE_CREATOR);
+			
+			loc.setText("Cache at: " + getLocation((double) lat * 10, (double) lon * 10) );
+			
 			title.setText(titleText);
+			
+			TextView creator = new TextView(this);
+			creator.setText("Created by: " + creatorName);
 			
 			TextView error = new TextView(this);
 			error.setText("** Database Error **");
@@ -150,8 +159,11 @@ public class ViewPointActivity extends Activity {
 			view.setPadding(16, 0, 16, 0);
 			
 			view.addView(title);
+			view.addView(creator);
+			view.addView(loc);
 			view.addView(error);
-			
+
+
 			setContentView(view);
 		}
 	}
