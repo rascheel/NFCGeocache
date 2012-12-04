@@ -28,7 +28,7 @@ public class ViewPointActivity extends Activity {
 		
 		try {
 			foundMe = Caching.GetID(cacheID);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			
 			foundMe = null;
 		}
@@ -138,6 +138,8 @@ public class ViewPointActivity extends Activity {
 			view.setPadding(16, 0, 16, 0);
 			
 			view.addView(title);
+			view.addView(error);
+			
 			setContentView(view);
 		}
 	}
