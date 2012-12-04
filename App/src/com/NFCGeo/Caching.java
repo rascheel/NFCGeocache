@@ -123,11 +123,11 @@ public abstract class Caching {
 		}
 	}
 	
-	public static Cache GetID(int id) throws SQLException{
+	public static Cache GetID(String id) throws SQLException{
 		String temp = new String("");
 		
 		temp += ("SELECT * FROM caches WHERE id=");
-		temp += (Integer.toString(id));
+		temp += (id);
 		
 		ResultSet r = MainMenu.dbHandle.queryTable(temp);
 		
