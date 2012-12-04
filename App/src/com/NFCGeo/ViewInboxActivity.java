@@ -38,7 +38,7 @@ public class ViewInboxActivity extends Activity
         inbox = new Messaging();
         if(MainMenu.dbAvailable)
         {
-            messages = inbox.retrieveMessages(MainMenu.dbHandle, "Ryan");
+            messages = inbox.retrieveMessages(MainMenu.dbHandle, MainMenu.user.name());
         }
         else
         {

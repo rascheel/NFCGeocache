@@ -24,7 +24,7 @@ public class SendMessageActivity extends Activity
         setContentView(R.layout.activity_send_message);
         Intent intent = getIntent();
 
-        messageSender = "Test Sender";
+        messageSender = MainMenu.user.name();
         messageRecipient = intent.getStringExtra(ReadMessageActivity.MESSAGE_REPLY_RECIPIENT);
         messageSubject = intent.getStringExtra(ReadMessageActivity.MESSAGE_REPLY_SUBJECT);
         messageBody = intent.getStringExtra(ReadMessageActivity.MESSAGE_REPLY_BODY);
@@ -42,13 +42,13 @@ public class SendMessageActivity extends Activity
 	{
         if(MainMenu.dbAvailable)
         {    
-		Message message = new Message();
-		message.setSender(messageSender);
-		message.setRecipient(toField.getText().toString());
-		message.setSubject(subjectField.getText().toString());
-		message.setBody(bodyField.getText().toString());
+            Message message = new Message();
+            message.setSender(messageSender);
+            message.setRecipient(toField.getText().toString());
+            message.setSubject(subjectField.getText().toString());
+            message.setBody(bodyField.getText().toString());
 
-        ViewInboxActivity.inbox.Send(MainMenu.dbHandle, message);
+            ViewInboxActivity.inbox.Send(MainMenu.dbHandle, message);
         }
         else
         {

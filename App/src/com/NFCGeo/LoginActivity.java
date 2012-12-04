@@ -19,9 +19,9 @@ public class LoginActivity extends Activity {
 
         mockUsers = new User[3];
 
-        mockUsers[0] = new User("Ryan");
-        mockUsers[1] = new User("Kaitlin", UserType.MODERATOR);
-        mockUsers[2] = new User("Alex", UserType.ADMIN);
+        mockUsers[0] = new User("ryan");
+        mockUsers[1] = new User("kaitlin", UserType.MODERATOR);
+        mockUsers[2] = new User("alex", UserType.ADMIN);
 
 
         setContentView(R.layout.activity_login);
@@ -43,7 +43,9 @@ public class LoginActivity extends Activity {
        
         String sUserName = usernameEditText.getText().toString();
         String sPassword = passwordEditText.getText().toString();
+       
         
+
         if(!MainMenu.isLoggedIn)
         {
             for(int i = 0; i < 3; i++)
@@ -55,7 +57,6 @@ public class LoginActivity extends Activity {
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
                     finish();
-                    break;
                 }
             }
 
