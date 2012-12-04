@@ -26,7 +26,7 @@ public class ViewPointActivity extends Activity {
 	    
 	    boolean found = intent.getBooleanExtra(ScanCacheActivity.CACHE_FOUND, false);
 	    
-	    String locationValues[] = locationRecord.split(locationRecord);
+	    String locationValues[] = locationRecord.split(",");
 	    
 	    int lat = Integer.parseInt(locationValues[0]);
 	    int lon = Integer.parseInt(locationValues[1]);
@@ -78,7 +78,7 @@ public class ViewPointActivity extends Activity {
 	    
 	    String titleText = "";
 	    
-	    if (found) titleText = "Found Cache \"" + cache.getName() + "!";
+	    if (found) titleText = "Found Cache \"" + cache.getName() + "\" !";
 	    else titleText = cache.getName();
 	    
 	    title.setText(titleText);
