@@ -23,6 +23,7 @@ public class ViewPointActivity extends Activity {
 		
 		String cacheName = intent.getStringExtra(ScanCacheActivity.CACHE_NAME);		
 		String cacheID = intent.getStringExtra(ScanCacheActivity.CACHE_ID);
+		boolean found = intent.getBooleanExtra(	ScanCacheActivity.CACHE_FOUND, false);
 		
 		Cache foundMe;
 		
@@ -37,8 +38,7 @@ public class ViewPointActivity extends Activity {
 
 			
 
-			boolean found = intent.getBooleanExtra(
-					ScanCacheActivity.CACHE_FOUND, false);
+
 
 			char degree = 176;
 			// caches[i] = new Cache(ID, Title, Lat, Long, Creator, TimesFound,
@@ -126,8 +126,14 @@ public class ViewPointActivity extends Activity {
 
 			TextView title = new TextView(this);
 			title.setTextSize(40);
-
-			String titleText = cacheName;
+			String titleText = "";
+			
+			
+			if (found)
+				titleText = "Found Cache \"" + cacheName + "\" !";
+			else
+				titleText = cacheName;
+			
 			title.setText(titleText);
 			
 			TextView error = new TextView(this);
