@@ -19,6 +19,7 @@ public class ScanCacheActivity extends Activity {
 	TextView nTextView;
 	public final static String CACHE_NAME = "com.NFCGeo.CACHENAME";
 	public final static String CACHE_ID = "com.NFCGeo.CACHEID";
+	public final static String CACHE_LOCATION = "com.NFCGeo.CACHELOCATION";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,11 @@ public class ScanCacheActivity extends Activity {
 			Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             NdefMessage msg = (NdefMessage) rawMsgs[0];
 
-            NdefRecord tagRecord = msg.getRecords()[0];
-            String cacheName = new String(tagRecord.getPayload());
+            NdefRecord cacheNameRecord = msg.getRecords()[0];
+            NdefRecord cacheLocationRecord = msg.getRecords()[1];
+            
+            String cacheName = new String(cacheNameRecord.getPayload());
+            String locationString = new String(cacheLocationRecord.getPayload());
             
             // Create Intent to use to start the ViewPoint Activity that shows the Cache Info page
             Intent newIntent = new Intent(this, ViewPointActivity.class);
@@ -46,7 +50,8 @@ public class ScanCacheActivity extends Activity {
             // Store Cache name and ID in the Intent
             newIntent.putExtra(CACHE_ID, MainMenu.ByteArrayToHexString(tagId));
             newIntent.putExtra(CACHE_NAME, cacheName);
-            
+            newIntent.putExtra(CACHE_LOCATION, locationString);
+
             startActivity(newIntent);
             
             
