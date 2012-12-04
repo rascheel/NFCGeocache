@@ -21,10 +21,11 @@ public class ViewPointActivity extends Activity {
 		// Get the message from the intent
 		Intent intent = getIntent();
 		
-		//String cacheName = intent.getStringExtra(ScanCacheActivity.CACHE_NAME);
-		
+		String cacheName = intent.getStringExtra(ScanCacheActivity.CACHE_NAME);		
 		String cacheID = intent.getStringExtra(ScanCacheActivity.CACHE_ID);
+		
 		Cache foundMe;
+		
 		try {
 
 			foundMe = Caching.GetID(cacheID);
@@ -118,11 +119,19 @@ public class ViewPointActivity extends Activity {
 			TextView title = new TextView(this);
 			title.setTextSize(40);
 
-			String titleText = "Database Error";
+			String titleText = cacheName;
 			title.setText(titleText);
-
-			setContentView(view);
+			
+			TextView error = new TextView(this);
+			error.setText("** Database Error **");
+			
+			
+			// Sets settings for the page layout
+			view.setOrientation(LinearLayout.VERTICAL);
+			view.setPadding(16, 0, 16, 0);
+			
 			view.addView(title);
+			setContentView(view);
 		}
 	}
 
