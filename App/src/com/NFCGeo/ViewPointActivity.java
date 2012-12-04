@@ -69,10 +69,9 @@ public class ViewPointActivity extends Activity {
 			TextView title = new TextView(this);
 			title.setTextSize(40);
 
-			double loc_lat = Math.round(foundMe.getLoc_lat() / 1000.0) / 1000.0;
-			double loc_long = Math.round(foundMe.getLoc_long() / 1000.0) / 1000.0;
 			
-			String location = getLocation(loc_lat, loc_long);
+			
+			String location = getLocation(foundMe.getLoc_lat(), foundMe.getLoc_long());
 			
 			String titleText = "";
 
@@ -124,10 +123,7 @@ public class ViewPointActivity extends Activity {
 			// and there is location data available
 			if (found)
 			{
-
-
 				titleText = "Found Cache \"" + cacheName + "\" !";
-
 			}
 				
 			else
@@ -144,7 +140,7 @@ public class ViewPointActivity extends Activity {
 			
 			String creatorName = intent.getStringExtra(ScanCacheActivity.CACHE_CREATOR);
 			
-			loc.setText("Cache at: " + getLocation((double) (lat * 10), (double) (lon * 10)) );
+			loc.setText("Cache at: " + getLocation(lat, lon) );
 			
 			title.setText(titleText);
 			
@@ -168,23 +164,26 @@ public class ViewPointActivity extends Activity {
 		}
 	}
 
-	private String getLocation(double loc_lat, double loc_long)
+	private String getLocation(int loc_lat, int loc_long)
 	{		
 
+		double lat = Math.round( loc_lat / 1000.0) / 1000.0;
+		double lon = Math.round( loc_long / 1000.0) / 1000.0;
+		
 		String location;
-		if (loc_lat > 0)
+		if (lat > 0)
 			location = "N";
 		else
 			location = "S";
 
-		location += " " + Math.abs(loc_lat) + DEGREE;
+		location += " " + Math.abs(lat) + DEGREE;
 
-		if (loc_long > 0)
+		if (lon > 0)
 			location += " E";
 		else
 			location += " W";
 
-		location += " " + Math.abs(loc_long) + DEGREE;
+		location += " " + Math.abs(lon) + DEGREE;
 
 		return location;
 		
