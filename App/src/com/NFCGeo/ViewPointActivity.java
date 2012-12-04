@@ -144,7 +144,7 @@ public class ViewPointActivity extends Activity {
 			
 			String creatorName = intent.getStringExtra(ScanCacheActivity.CACHE_CREATOR);
 			
-			loc.setText("Cache at: " + getLocation((double) lat * 10, (double) lon * 10) );
+			loc.setText("Cache at: " + getLocation((double) (lat * 10), (double) (lon * 10)) );
 			
 			title.setText(titleText);
 			
