@@ -12,7 +12,8 @@ public abstract class Caching {
 	public static void Add(Cache c) throws SQLException{
 		String temp = new String("");
 		
-		temp += ("INSERT INTO caches(name,creator,loc_lat,loc_long) values(\'");
+		temp += ("INSERT INTO caches(id, name,creator,loc_lat,loc_long) values(\'");
+		temp += (c.getId() + "\',\'");
 		temp += (c.getName() + "\',\'");
 		temp += (c.getCreator() + "\',");
 		temp += (c.getLoc_lat() + ",");
