@@ -21,13 +21,21 @@ public class ViewPointActivity extends Activity {
 		// Get the message from the intent
 		Intent intent = getIntent();
 		
-		String cacheName = intent.getStringExtra(ScanCacheActivity.CACHE_NAME);
-		
+		String cacheName = intent.getStringExtra(ScanCacheActivity.CACHE_NAME);		
 		String cacheID = intent.getStringExtra(ScanCacheActivity.CACHE_ID);
+		
 		Cache foundMe;
+		
 		try {
-
 			foundMe = Caching.GetID(cacheID);
+		} catch (Exception e) {
+			
+			foundMe = null;
+		}
+		
+		if (foundMe!=null) {
+
+			
 
 			boolean found = intent.getBooleanExtra(
 					ScanCacheActivity.CACHE_FOUND, false);
@@ -111,7 +119,8 @@ public class ViewPointActivity extends Activity {
 
 			setContentView(view);
 
-		} catch (SQLException e) {
+		} 
+		else{
 
 			LinearLayout view = new LinearLayout(this);
 
@@ -124,12 +133,13 @@ public class ViewPointActivity extends Activity {
 			TextView error = new TextView(this);
 			error.setText("** Database Error **");
 			
-			
 			// Sets settings for the page layout
 			view.setOrientation(LinearLayout.VERTICAL);
 			view.setPadding(16, 0, 16, 0);
 			
 			view.addView(title);
+			view.addView(error);
+			
 			setContentView(view);
 		}
 	}
