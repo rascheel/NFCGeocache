@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 public class ViewPointActivity extends Activity {
 
+	private static final char DEGREE = 176;
+
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,6 +27,8 @@ public class ViewPointActivity extends Activity {
 		String cacheName = intent.getStringExtra(ScanCacheActivity.CACHE_NAME);		
 		String cacheID = intent.getStringExtra(ScanCacheActivity.CACHE_ID);
 		boolean found = intent.getBooleanExtra(	ScanCacheActivity.CACHE_FOUND, false);
+		
+			
 		
 		Cache foundMe;
 		
@@ -37,10 +42,6 @@ public class ViewPointActivity extends Activity {
 		if (foundMe!=null) {
 
 			
-
-
-
-			char degree = 176;
 			// caches[i] = new Cache(ID, Title, Lat, Long, Creator, TimesFound,
 			// Rating);
 			// switch (Integer.parseInt(message))
@@ -62,29 +63,17 @@ public class ViewPointActivity extends Activity {
 			// }
 			//
 			// Formats the latitude/longitude of the cache
-			double loc_lat = Math.round(foundMe.getLoc_lat() / 1000.0) / 1000.0;
-			double loc_long = Math.round(foundMe.getLoc_long() / 1000.0) / 1000.0;
-
-			String location;
-			if (loc_lat > 0)
-				location = "N";
-			else
-				location = "S";
-
-			location += " " + Math.abs(loc_lat) + degree;
-
-			if (loc_long > 0)
-				location += " E";
-			else
-				location += " W";
-
-			location += " " + Math.abs(loc_long) + degree;
-
+			
 			LinearLayout view = new LinearLayout(this);
 
 			TextView title = new TextView(this);
 			title.setTextSize(40);
 
+			double loc_lat = Math.round(foundMe.getLoc_lat() / 1000.0) / 1000.0;
+			double loc_long = Math.round(foundMe.getLoc_long() / 1000.0) / 1000.0;
+			
+			String location = getLocation(loc_lat, loc_long);
+			
 			String titleText = "";
 
 			if (found)
@@ -121,18 +110,35 @@ public class ViewPointActivity extends Activity {
 
 		} 
 		else{
-
+			
+			
 			LinearLayout view = new LinearLayout(this);
 
 			TextView title = new TextView(this);
+			TextView loc = new TextView(this);
+
 			title.setTextSize(40);
 			String titleText = "";
 			
-			
+			// If the Cache is marked as found, the intent came from scanning the tag
+			// and there is location data available
 			if (found)
+			{
+				String locationRecord = intent.getStringExtra(ScanCacheActivity.CACHE_LOCATION);
+				
+				String locationValues[] = locationRecord.split(",");
+
+				int lat = Integer.parseInt(locationValues[0]);	
+				int lon = Integer.parseInt(locationValues[1]);
+
 				titleText = "Found Cache \"" + cacheName + "\" !";
+				loc.setText("Cache at: " + getLocation((double) lat, (double) lon) );
+			}
+				
 			else
+			{
 				titleText = cacheName;
+			}
 			
 			title.setText(titleText);
 			
@@ -150,6 +156,28 @@ public class ViewPointActivity extends Activity {
 		}
 	}
 
+	private String getLocation(double loc_lat, double loc_long)
+	{		
+
+		String location;
+		if (loc_lat > 0)
+			location = "N";
+		else
+			location = "S";
+
+		location += " " + Math.abs(loc_lat) + DEGREE;
+
+		if (loc_long > 0)
+			location += " E";
+		else
+			location += " W";
+
+		location += " " + Math.abs(loc_long) + DEGREE;
+
+		return location;
+		
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_view_point, menu);
