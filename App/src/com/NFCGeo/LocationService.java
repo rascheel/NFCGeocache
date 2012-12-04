@@ -12,8 +12,8 @@ import android.os.Bundle;
 
 public class LocationService extends MapActivity implements LocationListener{
 
-	Location loc;
-	LocationManager lm;
+	private Location loc;
+	private LocationManager lm;
 	
      public LocationService()
      {
@@ -31,7 +31,7 @@ public class LocationService extends MapActivity implements LocationListener{
      
      public GeoPoint getGeoPoint()
      {
-    	 Location loc = getLocation();
+    	 loc = getLocation();
     	 if (loc != null)
     		 return new GeoPoint((int)(1000000*loc.getLatitude()), 
     			 (int)(1000000*loc.getLongitude()));
