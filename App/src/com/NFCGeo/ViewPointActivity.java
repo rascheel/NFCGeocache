@@ -1,5 +1,7 @@
 package com.NFCGeo;
 
+import java.util.Scanner;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,8 +22,14 @@ public class ViewPointActivity extends Activity {
 	    Intent intent = getIntent();
 	    String cacheName = intent.getStringExtra(ScanCacheActivity.CACHE_NAME);
 	    String cacheID = intent.getStringExtra(ScanCacheActivity.CACHE_ID);
+	    String locationRecord = intent.getStringExtra(ScanCacheActivity.CACHE_LOCATION);
 	    
-	    Cache cache = new Cache(cacheID, cacheName, 19240000, -99120000, "Creator 1");
+	    String locationValues[] = locationRecord.split(locationRecord);
+	    int lat = Integer.parseInt(locationValues[0]);
+	    int lon = Integer.parseInt(locationValues[1]);
+	    
+	    
+	    Cache cache = new Cache(cacheID, cacheName, lat, lon, "Creator 1");
 	    
 	    
 	    char degree = 176;
