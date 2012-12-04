@@ -75,8 +75,7 @@ public class ViewMapActivity extends MapActivity implements LocationListener
             Drawable drawable = this.getResources().getDrawable(R.drawable.x);
             MapOverlay itemizedoverlay = new MapOverlay(drawable, this);
         	
-        	Caching caching = new Caching();
-        	Cache[] caches = caching.GetLocation(42023350, -93625622, 1000000);
+        	Cache[] caches = Caching.GetLocation(42023350, -93625622, 1000000);
         	
         	if (caches != null)
         	{

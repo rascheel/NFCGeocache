@@ -108,7 +108,7 @@ public abstract class Caching {
 			
 			for(i = 0; i < size; i++){
 				c[i] = new Cache();
-				c[i].setId(r.getInt("id"));
+				c[i].setId(r.getString("id"));
 				c[i].setName(r.getString("name"));
 				c[i].setCreator(r.getString("creator"));
 				c[i].setLoc_lat(r.getInt("loc_lat"));
